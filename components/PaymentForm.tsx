@@ -1,5 +1,10 @@
 import * as yup from "yup";
-import { PaymentIcon, LockIcon } from "./Icons";
+import {
+  PaymentIcon,
+  LockIcon,
+  InformationIcon,
+  CreditCardIcon,
+} from "./Icons";
 import Button from "./Button";
 import { Form, Formik } from "formik";
 import Input from "./Input";
@@ -65,6 +70,7 @@ function PaymentForm() {
                 .replace(/(\d{4})/g, "$1 ")
                 .trim()
             }
+            icon={<CreditCardIcon />}
           />
           <div className="grid grid-cols-2 gap-6">
             <Input
@@ -110,6 +116,7 @@ function PaymentForm() {
               mask={(value) =>
                 value && value.replace(/\s/g, "").replace(/[^0-9]+/g, "")
               }
+              icon={<InformationIcon />}
             />
           </div>
           <Input

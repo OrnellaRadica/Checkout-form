@@ -9,6 +9,7 @@ interface Props {
   maxLength?: number;
   mask?: (value: any) => string;
   fontBold?: boolean;
+  icon?: JSX.Element;
 }
 
 const Input: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<Props> = ({
   maxLength,
   mask,
   fontBold,
+  icon,
 }) => {
   const error = "";
   const { getFieldProps } = useFormikContext();
@@ -29,7 +31,7 @@ const Input: React.FC<Props> = ({
   });
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full relative">
       <label htmlFor={name} className="capitalize">
         {label}
       </label>
@@ -42,6 +44,8 @@ const Input: React.FC<Props> = ({
         value={mask ? mask(value) : value}
         className={classesButton}
       />
+      {icon && <div className="absolute top-[34px] right-[10px]">{icon}</div>}
+
       {error && <span>{error} </span>}
     </div>
   );
