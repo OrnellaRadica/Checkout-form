@@ -29,8 +29,9 @@ function PaymentForm() {
         <h1 className="font-bold text-xl leading-6">Payment info</h1>
       </div>
       <Formik
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, actions) => {
+          alert(`Congrats`);
+          actions.resetForm({ values: initialValues });
         }}
         initialValues={initialValues}
         validationSchema={validateSchema}
@@ -115,6 +116,7 @@ function PaymentForm() {
               ariaLabel="Confirm payment"
               isFullWidth={true}
               icon={<LockIcon />}
+              type="submit"
             >
               confirm payment
             </Button>
