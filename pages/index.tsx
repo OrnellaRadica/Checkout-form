@@ -1,4 +1,5 @@
 import Head from "next/head";
+import PaymentForm from "../components/PaymentForm";
 
 export default function Home() {
   return (
@@ -9,7 +10,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main></main>
+      <main className="flex items-center justify-center min-h-screen">
+        <PaymentForm />
+      </main>
     </>
   );
 }
