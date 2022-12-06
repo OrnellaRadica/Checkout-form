@@ -1,4 +1,4 @@
-import { Field, useFormikContext } from "formik";
+import { Field, useFormikContext, ErrorMessage } from "formik";
 import classnames from "classnames";
 
 interface Props {
@@ -22,19 +22,26 @@ const Input: React.FC<Props> = ({
   fontBold,
   icon,
 }) => {
-  const error = "";
   const { getFieldProps } = useFormikContext();
   const { value } = getFieldProps(name);
-  const classesButton = classnames({
-    "placeholder-input p-3 border border-input rounded-lg ": true,
+  const classesInput = classnames({
+    "placeholder-input p-3 border border-input rounded-lg placeholder:text-sm placeholder:leading-4 focus-visible:outline-input":
+      true,
     "placeholder:font-bold": fontBold,
   });
 
   return (
     <div className="flex flex-col gap-2 w-full relative">
-      <label htmlFor={name} className="capitalize">
-        {label}
-      </label>
+      <div className="flex justify-between gap-1">
+        <label htmlFor={name} className="capitalize">
+          {label}
+        </label>
+        <ErrorMessage
+          name={name}
+          component="span"
+          className="text-secondary text-xs max-[290px]:text-[10px]"
+        />
+      </div>
       <Field
         id={name}
         name={name}
@@ -42,11 +49,9 @@ const Input: React.FC<Props> = ({
         placeholder={placeholder}
         maxLength={maxLength}
         value={mask ? mask(value) : value}
-        className={classesButton}
+        className={classesInput}
       />
-      {icon && <div className="absolute top-[34px] right-[10px]">{icon}</div>}
-
-      {error && <span>{error} </span>}
+      {icon && <div className="absolute top-[37px] right-[12px]">{icon}</div>}
     </div>
   );
 };

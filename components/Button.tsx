@@ -9,6 +9,7 @@ export interface ButtonProps {
   ariaLabel: string;
   icon?: JSX.Element;
   isFullWidth?: boolean;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
