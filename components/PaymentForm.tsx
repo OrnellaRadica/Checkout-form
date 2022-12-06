@@ -5,6 +5,7 @@ import {
   InformationIcon,
   CreditCardIcon,
   CircleIcon,
+  CheckIcon,
 } from "./Icons";
 import Button from "./Button";
 import { Form, Formik } from "formik";
@@ -154,11 +155,17 @@ function PaymentForm() {
           );
         }}
       </Formik>
-      <Modal
-        isOpen={open}
-        handleClose={() => setOpen(false)}
-        children="Payment confirmed"
-      />
+      <Modal isOpen={open} handleClose={() => setOpen(false)}>
+        <>
+          <div className="rounded-full bg-transparent border-2 border-primary p-2">
+            <CheckIcon />
+          </div>
+          <h2 className="font-bold text-xl leading-6">Payment confirmed</h2>
+          <div className="flex justify-start w-full">
+            <div className="h-1 w-full bg-primary animate-fill rounded-full"></div>
+          </div>
+        </>
+      </Modal>
     </div>
   );
 }

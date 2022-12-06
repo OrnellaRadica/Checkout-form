@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { CheckIcon } from "./Icons";
 
 interface Props {
-  children: string;
+  children: JSX.Element;
   isOpen: boolean;
   handleClose: () => void;
 }
@@ -29,13 +28,7 @@ const Modal: React.FC<Props> = ({ children, isOpen, handleClose }) => {
         onClick={handleClose}
       >
         <div className="bg-white animate-scale capitalize flex flex-col gap-6 justify-center items-center w-11/12 max-w-[319px] sm:w-[319px] rounded-lg p-8 sm:shadow-lg sm:border sm:border-gray-50">
-          <div className="rounded-full bg-transparent border-2 border-primary p-2">
-            <CheckIcon />
-          </div>
-          <h2 className="font-bold text-xl leading-6">{children}</h2>
-          <div className="flex justify-start w-full">
-            <div className="h-1 w-full bg-primary animate-fill rounded-full"></div>
-          </div>
+          {children}
         </div>
       </div>,
       document.body
