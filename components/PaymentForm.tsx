@@ -3,6 +3,8 @@ import { PaymentIcon, LockIcon } from "./Icons";
 import Button from "./Button";
 import { Form, Formik } from "formik";
 import Input from "./Input";
+import Modal from "../components/Modal";
+import { useState } from "react";
 
 const initialValues = {
   full_name: "",
@@ -11,26 +13,31 @@ const initialValues = {
   cvv: "",
   zip_code: "",
 };
+const validateSchema = yup.object().shape({
+  full_name: yup.string().required("Input is required"),
+  card_number: yup
+    .string()
+    .required("Input is required")
+    .min(16, "not less than 16"),
+  expiration: yup.string().required("Input is required").min(5),
+  cvv: yup.string().required("Input is required").max(3).min(3),
+  zip_code: yup.string().required("Input is required"),
+});
 function PaymentForm() {
-  const validateSchema = yup.object().shape({
-    full_name: yup.string().required("Input is required"),
-    card_number: yup
-      .string()
-      .required("Input is required")
-      .min(16, "not less than 16"),
-    expiration: yup.string().required("Input is required").min(5),
-    cvv: yup.string().required("Input is required").max(3).min(3),
-    zip_code: yup.string().required("Input is required"),
-  });
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="flex flex-col gap-6 justify-center items-center bg-white w-[319px] rounded-lg p-8 sm:shadow-lg sm:border sm:border-gray-50">
+    <div
+      id="form"
+      className="flex flex-col gap-6 justify-center items-center w-[319px] rounded-lg p-8 sm:shadow-lg sm:border sm:border-gray-50"
+    >
       <div className="flex flex-col justify-center items-center gap-2">
         <PaymentIcon />
         <h1 className="font-bold text-xl leading-6">Payment info</h1>
       </div>
       <Formik
         onSubmit={(values, actions) => {
-          alert(`Congrats`);
+          setOpen(true);
           actions.resetForm({ values: initialValues });
         }}
         initialValues={initialValues}
@@ -98,6 +105,7 @@ function PaymentForm() {
               name="cvv"
               type="text"
               placeholder="..."
+              fontBold={true}
               maxLength={3}
               mask={(value) =>
                 value && value.replace(/\s/g, "").replace(/[^0-9]+/g, "")
@@ -126,6 +134,11 @@ function PaymentForm() {
           </div>
         </Form>
       </Formik>
+      <Modal
+        isOpen={open}
+        handleClose={() => setOpen(false)}
+        children="Payment confirmed"
+      />
     </div>
   );
 }
